@@ -1,93 +1,1592 @@
-<!-- index.html --><!DOCTYPE html><html lang="pl">
+<!DOCTYPE html>
+<html lang="pl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sklep - Strona Główna</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SportShop - Odzież i obuwie sportowe</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === RESET & TYPOGRAFIA === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    body {
+      background-color: #ffffff;
+      color: #111;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    button {
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+    
+    /* === UKŁAD STRONY === */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 2rem;
+      background-color: #000;
+      color: white;
+      font-size: 0.9rem;
+    }
+    
+    .top-header a {
+      color: #ccc;
+      transition: color 0.2s ease;
+    }
+    
+    .top-header a:hover {
+      color: white;
+    }
+    
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #000;
+    }
+    
+    .logo span {
+      color: #ff0000;
+    }
+    
+    .search-bar {
+      flex: 1;
+      max-width: 600px;
+      margin: 0 2rem;
+      position: relative;
+    }
+    
+    .search-bar input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      padding-right: 3rem;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      font-size: 0.95rem;
+    }
+    
+    .search-bar button {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #666;
+    }
+    
+    .header-icons {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #333;
+    }
+    
+    .icon-btn i {
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0;
+      border-top: 1px solid #eee;
+    }
+    
+    nav a {
+      margin: 0 1.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    
+    nav a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #000;
+    }
+    
+    .hero {
+      height: 600px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?ixlib=rb-4.0.3') center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 0 1rem;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero p {
+      font-size: 1.4rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-btn {
+      background-color: #000;
+      color: white;
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .hero-btn:hover {
+      background-color: #ff0000;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    section {
+      padding: 3rem 2rem;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .section-header h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .view-all {
+      color: #666;
+      font-weight: 600;
+      position: relative;
+    }
+    
+    .view-all::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #666;
+    }
+    
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .category-card {
+      position: relative;
+      height: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .category-card .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+    }
+    
+    .category-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .category-card p {
+      opacity: 0.8;
+    }
+    
+    /* === SIATKA PRODUKTÓW === */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    
+    .product-item {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .product-item:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transform: translateY(-5px);
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background-color: #ff0000;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 10;
+    }
+    
+    .product-img {
+      height: 280px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .product-item:hover .product-img img {
+      transform: scale(1.05);
+    }
+    
+    .quick-view {
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .product-item:hover .quick-view {
+      bottom: 0;
+      opacity: 1;
+    }
+    
+    .product-info {
+      padding: 1.2rem;
+    }
+    
+    .product-category {
+      color: #666;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .product-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    
+    .product-price {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #000;
+    }
+    
+    .product-colors {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+    }
+    
+    .color-option {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #eee;
+      cursor: pointer;
+    }
+    
+    /* === STRONA PRODUKTU === */
+    .product-detail {
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .product-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 4rem;
+      width: 100%;
+    }
+    
+    .product-gallery {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 1.5rem;
+    }
+    
+    .thumbnails {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .thumb {
+      width: 100%;
+      aspect-ratio: 1/1;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .main-image {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .main-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .product-category {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .product-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    
+    .product-description {
+      margin-bottom: 2rem;
+      color: #444;
+      line-height: 1.8;
+    }
+    
+    .product-options {
+      margin-bottom: 2rem;
+    }
+    
+    .option-title {
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+    
+    .sizes {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    
+    .size-option {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .size-option:hover, .size-option.selected {
+      border-color: #000;
+      background-color: #000;
+      color: white;
+    }
+    
+    .colors {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    
+    .color-option {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .color-option.selected::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border: 2px solid #000;
+      border-radius: 50%;
+    }
+    
+    .add-to-cart {
+      background-color: #000;
+      color: white;
+      padding: 1.2rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    
+    .add-to-cart:hover {
+      background-color: #ff0000;
+    }
+    
+    .wishlist-btn {
+      background-color: #f8f8f8;
+      color: #333;
+      padding: 1.2rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    
+    .wishlist-btn:hover {
+      background-color: #eee;
+    }
+    
+    .delivery-info {
+      background-color: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    
+    .delivery-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .delivery-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    
+    .delivery-item i {
+      font-size: 1.5rem;
+      color: #666;
+    }
+    
+    /* === KATEGORIA === */
+    .category-page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    
+    .category-header {
+      margin-bottom: 2rem;
+    }
+    
+    .category-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .category-header p {
+      color: #666;
+      max-width: 600px;
+    }
+    
+    .category-content {
+      display: flex;
+      gap: 3rem;
+    }
+    
+    .filters {
+      width: 250px;
+    }
+    
+    .filter-group {
+      margin-bottom: 2rem;
+    }
+    
+    .filter-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    .filter-option input {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .products-container {
+      flex: 1;
+    }
+    
+    .sort-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .results-count {
+      color: #666;
+    }
+    
+    .sort-select {
+      padding: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    /* === STOPKA === */
+    footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 4rem 2rem 2rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto 3rem;
+    }
+    
+    .footer-column h3 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: #ff0000;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      transition: color 0.2s ease;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #333;
+      color: white;
+      transition: all 0.2s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: #ff0000;
+      transform: translateY(-3px);
+    }
+    
+    .newsletter input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #333;
+      background-color: #222;
+      color: white;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    
+    .newsletter button {
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-weight: 600;
+      border-radius: 4px;
+      width: 100%;
+    }
+    
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    
+    .payment-methods {
+      display: flex;
+      gap: 0.8rem;
+    }
+    
+    .payment-methods i {
+      font-size: 1.8rem;
+    }
+    
+    /* === RESPONSYWNOŚĆ === */
+    @media (max-width: 1024px) {
+      .product-wrapper {
+        flex-direction: column;
+      }
+      
+      .hero {
+        height: 500px;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .main-header {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      
+      .search-bar {
+        order: 3;
+        margin: 0;
+        max-width: 100%;
+      }
+      
+      nav {
+        overflow-x: auto;
+        padding: 1rem 0;
+        justify-content: flex-start;
+      }
+      
+      nav a {
+        margin: 0 1rem;
+        white-space: nowrap;
+      }
+      
+      .hero {
+        height: 400px;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .category-content {
+        flex-direction: column;
+      }
+      
+      .filters {
+        width: 100%;
+      }
+      
+      .product-gallery {
+        grid-template-columns: 1fr;
+      }
+      
+      .thumbnails {
+        flex-direction: row;
+        order: 2;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .top-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        text-align: center;
+      }
+      
+      .header-icons {
+        gap: 1rem;
+      }
+      
+      .icon-btn span {
+        display: none;
+      }
+      
+      .hero {
+        height: 350px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section-header h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <h1>Sklep</h1>
+    <div class="top-header">
+      <div class="top-links">
+        <a href="#">Darmowa dostawa przy zamówieniach powyżej 200 zł</a>
+      </div>
+      <div class="top-links">
+        <a href="#">Pomoc</a>
+        <a href="#">Zwroty</a>
+        <a href="#">Śledź zamówienie</a>
+      </div>
+    </div>
+    
+    <div class="main-header">
+      <a href="index.html" class="logo">SPORT<span>SHOP</span></a>
+      
+      <div class="search-bar">
+        <input type="text" placeholder="Szukaj produktów...">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      
+      <div class="header-icons">
+        <a href="#" class="icon-btn">
+          <i class="far fa-user"></i>
+          <span>Konto</span>
+        </a>
+        <a href="#" class="icon-btn">
+          <i class="far fa-heart"></i>
+          <span>Ulubione</span>
+        </a>
+        <a href="cart.html" class="icon-btn">
+          <i class="fas fa-shopping-bag"></i>
+          <span>Koszyk</span>
+        </a>
+      </div>
+    </div>
+    
     <nav>
-      <a href="index.html">Home</a>
-      <a href="category.html">Produkty</a>
-      <a href="cart.html">Koszyk</a>
-      <a href="login.html">Zaloguj</a>
+      <a href="#">Mężczyźni</a>
+      <a href="#">Kobiety</a>
+      <a href="#">Dzieci</a>
+      <a href="#">Nowości</a>
+      <a href="#">Bestsellery</a>
+      <a href="#">Promocje</a>
+      <a href="#">Kolekcje</a>
     </nav>
   </header>
-  <main>
+  
+  <!-- Strona główna -->
+  <main id="home-page">
+    <section class="hero">
+      <h1>KOLEKCJA ZIMOWA 2025</h1>
+      <p>Odkryj nową kolekcję, zaprojektowaną dla Twoich sportowych wyzwań</p>
+      <button class="hero-btn">Kup teraz</button>
+    </section>
+    
     <section>
-      <h2>Nowości</h2>
+      <div class="section-header">
+        <h2>Popularne kategorie</h2>
+        <a href="#" class="view-all">Zobacz wszystkie</a>
+      </div>
+      
+      <div class="categories">
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Obuwie">
+          <div class="overlay">
+            <h3>Obuwie sportowe</h3>
+            <p>Buty do biegania, treningu i codziennego użytku</p>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Odzież">
+          <div class="overlay">
+            <h3>Odzież sportowa</h3>
+            <p>Koszulki, spodenki, bluzy i więcej</p>
+          </div>
+        </div>
+        
+        <div class="category-card">
+          <img src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Akcesoria">
+          <div class="overlay">
+            <h3>Akcesoria</h3>
+            <p>Torby, czapki, skarpety i akcesoria</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="section-header">
+        <h2>Nowości</h2>
+        <a href="#" class="view-all">Zobacz wszystkie</a>
+      </div>
+      
       <div class="product-grid">
-        <a href="product.html" class="product-item">
-          <img src="https://via.placeholder.com/300x400" alt="Produkt 1">
-          <div class="product-item-title">Produkt 1</div>
-        </a>
-        <a href="product.html" class="product-item">
-          <img src="https://via.placeholder.com/300x400" alt="Produkt 2">
-          <div class="product-item-title">Produkt 2</div>
-        </a>
+        <div class="product-item">
+          <div class="product-badge">Nowość</div>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Buty Ultraboost">
+          </div>
+          <div class="quick-view">Szybki podgląd</div>
+          <div class="product-info">
+            <div class="product-category">Buty sportowe</div>
+            <div class="product-title">Ultraboost 5.0 DNA</div>
+            <div class="product-price">499,99 zł</div>
+            <div class="product-colors">
+              <div class="color-option" style="background-color: #000;"></div>
+              <div class="color-option" style="background-color: #fff; border: 1px solid #ccc;"></div>
+              <div class="color-option" style="background-color: #ff0000;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-item">
+          <div class="product-badge">Nowość</div>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Koszulka treningowa">
+          </div>
+          <div class="quick-view">Szybki podgląd</div>
+          <div class="product-info">
+            <div class="product-category">Odzież męska</div>
+            <div class="product-title">Koszulka treningowa Aeroready</div>
+            <div class="product-price">129,99 zł</div>
+            <div class="product-colors">
+              <div class="color-option" style="background-color: #000;"></div>
+              <div class="color-option" style="background-color: #1e40af;"></div>
+              <div class="color-option" style="background-color: #dc2626;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-item">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Buty Terrex">
+          </div>
+          <div class="quick-view">Szybki podgląd</div>
+          <div class="product-info">
+            <div class="product-category">Buty turystyczne</div>
+            <div class="product-title">Terrex Free Hiker 2.0</div>
+            <div class="product-price">599,99 zł</div>
+            <div class="product-colors">
+              <div class="color-option" style="background-color: #3f6212;"></div>
+              <div class="color-option" style="background-color: #7c2d12;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-item">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Bluza z kapturem">
+          </div>
+          <div class="quick-view">Szybki podgląd</div>
+          <div class="product-info">
+            <div class="product-category">Odzież damska</div>
+            <div class="product-title">Bluza z kapturem Essentials</div>
+            <div class="product-price">199,99 zł</div>
+            <div class="product-colors">
+              <div class="color-option" style="background-color: #000;"></div>
+              <div class="color-option" style="background-color: #4b5563;"></div>
+              <div class="color-option" style="background-color: #f43f5e;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="section-header">
+        <h2>Bestsellery</h2>
+        <a href="#" class="view-all">Zobacz wszystkie</a>
+      </div>
+      
+      <div class="product-grid">
+        <div class="product-item">
+          <div class="product-badge">Bestseller</div>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1025&q=80" alt="Buty NMD">
+          </div>
+          <div class="quick-view">Szybki podgląd</div>
+          <div class="product-info">
+            <div class="product-category">Buty lifestyle</div>
+            <div class="product-title">NMD_R1</div>
+            <div class="product-price">399,99 zł</div>
+            <div class="product-colors">
+              <div class="color-option" style="background-color: #000;"></div>
+              <div class="color-option" style="background-color: #1d4ed8;"></div>
+              <div class="color-option" style="background-color: #f59e0b;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-item">
+          <div class="product-badge">Bestseller</div>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Spodnie dresowe">
+          </div>
+          <div class="quick-view">Szybki podgląd</div>
+          <div class="product-info">
+            <div class="product-category">Odzież męska</div>
+            <div class="product-title">Spodnie dresowe Tiro 23</div>
+            <div class="product-price">169,99 zł</div>
+            <div class="product-colors">
+              <div class="color-option" style="background-color: #000;"></div>
+              <div class="color-option" style="background-color: #1e3a8a;"></div>
+              <div class="color-option" style="background-color: #14532d;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-item">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1588117305388-c2631a279f82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Torba sportowa">
+          </div>
+          <div class="quick-view">Szybki podgląd</div>
+          <div class="product-info">
+            <div class="product-category">Akcesoria</div>
+            <div class="product-title">Torba treningowa Defender</div>
+            <div class="product-price">249,99 zł</div>
+            <div class="product-colors">
+              <div class="color-option" style="background-color: #000;"></div>
+              <div class="color-option" style="background-color: #dc2626;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="product-item">
+          <div class="product-badge">Bestseller</div>
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Buty Gazelle">
+          </div>
+          <div class="quick-view">Szybki podgląd</div>
+          <div class="product-info">
+            <div class="product-category">Buty lifestyle</div>
+            <div class="product-title">Gazelle</div>
+            <div class="product-price">349,99 zł</div>
+            <div class="product-colors">
+              <div class="color-option" style="background-color: #000;"></div>
+              <div class="color-option" style="background-color: #f43f5e;"></div>
+              <div class="color-option" style="background-color: #3b82f6;"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
-  <footer>
-    <p>&copy; 2025 Sklep</p>
-  </footer>
-</body>
-</html><!-- product.html --><!DOCTYPE html><html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produkt</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-    </nav>
-  </header>
-  <main class="product-detail">
+  
+  <!-- Strona produktu -->
+  <main id="product-page" class="product-detail" style="display: none;">
     <div class="product-wrapper">
       <div class="product-gallery">
-        <img src="https://via.placeholder.com/600x800" alt="Produkt główny">
+        <div class="thumbnails">
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Buty Ultraboost">
+          </div>
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1025&q=80" alt="Buty Ultraboost">
+          </div>
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1543508282-6319a3e2621f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=715&q=80" alt="Buty Ultraboost">
+          </div>
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Buty Ultraboost">
+          </div>
+        </div>
+        
+        <div class="main-image">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Buty Ultraboost">
+        </div>
       </div>
+      
       <div class="product-info">
-        <h1 class="product-title">Nazwa Produktu</h1>
-        <p class="product-price">199.00 zł</p>
+        <h1 class="product-title">Ultraboost 5.0 DNA</h1>
+        <div class="product-category">Buty sportowe</div>
+        <div class="product-price">499,99 zł</div>
+        
         <p class="product-description">
-          Stylowy, nowoczesny produkt wykonany z wysokiej jakości materiałów.
+          Buty Ultraboost 5.0 DNA to połączenie najnowszej technologii i stylowego designu. 
+          Wyposażone w rewolucyjną podeszwę Boost™, która zapewnia maksymalną amortyzację i zwrot energii. 
+          Cholewka wykonana z Primeknit+ idealnie dopasowuje się do stopy, zapewniając komfort przez cały dzień.
         </p>
-        <button class="add-to-cart">Dodaj do koszyka</button>
+        
+        <div class="product-options">
+          <div class="option-title">Rozmiar:</div>
+          <div class="sizes">
+            <div class="size-option">39</div>
+            <div class="size-option">40</div>
+            <div class="size-option">41</div>
+            <div class="size-option selected">42</div>
+            <div class="size-option">43</div>
+            <div class="size-option">44</div>
+            <div class="size-option">45</div>
+          </div>
+          
+          <div class="option-title">Kolor:</div>
+          <div class="colors">
+            <div class="color-option selected" style="background-color: #000;"></div>
+            <div class="color-option" style="background-color: #fff; border: 1px solid #ccc;"></div>
+            <div class="color-option" style="background-color: #ff0000;"></div>
+            <div class="color-option" style="background-color: #1e40af;"></div>
+          </div>
+        </div>
+        
+        <button class="add-to-cart">
+          <i class="fas fa-shopping-cart"></i> Dodaj do koszyka
+        </button>
+        
+        <button class="wishlist-btn">
+          <i class="far fa-heart"></i> Dodaj do listy życzeń
+        </button>
+        
+        <div class="delivery-info">
+          <div class="delivery-item">
+            <i class="fas fa-truck"></i>
+            <div>
+              <strong>Darmowa dostawa</strong>
+              <p>Przy zamówieniach powyżej 200 zł</p>
+            </div>
+          </div>
+          
+          <div class="delivery-item">
+            <i class="fas fa-exchange-alt"></i>
+            <div>
+              <strong>Łatwe zwroty</strong>
+              <p>30 dni na zwrot produktów</p>
+            </div>
+          </div>
+          
+          <div class="delivery-item">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <strong>Gwarancja jakości</strong>
+              <p>Produkty oryginalne z 2-letnią gwarancją</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
-</body>
-</html><!-- category.html --><!DOCTYPE html><html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kategoria</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-    </nav>
-  </header>
-  <main>
-    <h1>Kategoria: Męskie</h1>
-    <div class="product-grid">
-      <a href="product.html" class="product-item">
-        <img src="https://via.placeholder.com/300x400" alt="Produkt A">
-        <div class="product-item-title">Produkt A</div>
-      </a>
-      <a href="product.html" class="product-item">
-        <img src="https://via.placeholder.com/300x400" alt="Produkt B">
-        <div class="product-item-title">Produkt B</div>
-      </a>
+  
+  <!-- Kategoria -->
+  <main id="category-page" class="category-page" style="display: none;">
+    <div class="category-header">
+      <h1>Obuwie sportowe</h1>
+      <p>Odkryj naszą kolekcję butów sportowych, zaprojektowanych dla maksymalnej wydajności i komfortu.</p>
+    </div>
+    
+    <div class="category-content">
+      <div class="filters">
+        <div class="filter-group">
+          <div class="filter-title">Kategorie</div>
+          <div class="filter-options">
+            <div class="filter-option">
+              <input type="checkbox" id="running">
+              <label for="running">Do biegania</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="training">
+              <label for="training">Treningowe</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="lifestyle">
+              <label for="lifestyle">Lifestyle</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="hiking">
+              <label for="hiking">Turystyczne</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-group">
+          <div class="filter-title">Rozmiar</div>
+          <div class="filter-options">
+            <div class="filter-option">
+              <input type="checkbox" id="size39">
+              <label for="size39">39</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size40">
+              <label for="size40">40</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size41">
+              <label for="size41">41</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size42">
+              <label for="size42">42</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size43">
+              <label for="size43">43</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size44">
+              <label for="size44">44</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-group">
+          <div class="filter-title">Kolor</div>
+          <div class="filter-options">
+            <div class="filter-option">
+              <input type="checkbox" id="black">
+              <label for="black">Czarny</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="white">
+              <label for="white">Biały</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="blue">
+              <label for="blue">Niebieski</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="red">
+              <label for="red">Czerwony</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="green">
+              <label for="green">Zielony</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-group">
+          <div class="filter-title">Cena</div>
+          <div class="filter-options">
+            <div class="filter-option">
+              <input type="checkbox" id="price1">
+              <label for="price1">Do 200 zł</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="price2">
+              <label for="price2">200 - 400 zł</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="price3">
+              <label for="price3">400 - 600 zł</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="price4">
+              <label for="price4">Powyżej 600 zł</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="products-container">
+        <div class="sort-bar">
+          <div class="results-count">24 produkty</div>
+          <div class="sort-options">
+            <label for="sort">Sortuj według:</label>
+            <select id="sort" class="sort-select">
+              <option>Najnowsze</option>
+              <option>Cena: od najniższej</option>
+              <option>Cena: od najwyższej</option>
+              <option>Najpopularniejsze</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="product-grid">
+          <div class="product-item">
+            <div class="product-badge">Bestseller</div>
+            <div class="product-img">
+              <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1025&q=80" alt="Buty NMD">
+            </div>
+            <div class="quick-view">Szybki podgląd</div>
+            <div class="product-info">
+              <div class="product-category">Buty lifestyle</div>
+              <div class="product-title">NMD_R1</div>
+              <div class="product-price">399,99 zł</div>
+              <div class="product-colors">
+                <div class="color-option" style="background-color: #000;"></div>
+                <div class="color-option" style="background-color: #1d4ed8;"></div>
+                <div class="color-option" style="background-color: #f59e0b;"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-item">
+            <div class="product-img">
+              <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Buty Terrex">
+            </div>
+            <div class="quick-view">Szybki podgląd</div>
+            <div class="product-info">
+              <div class="product-category">Buty turystyczne</div>
+              <div class="product-title">Terrex Free Hiker 2.0</div>
+              <div class="product-price">599,99 zł</div>
+              <div class="product-colors">
+                <div class="color-option" style="background-color: #3f6212;"></div>
+                <div class="color-option" style="background-color: #7c2d12;"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-item">
+            <div class="product-badge">Nowość</div>
+            <div class="product-img">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Buty Ultraboost">
+            </div>
+            <div class="quick-view">Szybki podgląd</div>
+            <div class="product-info">
+              <div class="product-category">Buty sportowe</div>
+              <div class="product-title">Ultraboost 5.0 DNA</div>
+              <div class="product-price">499,99 zł</div>
+              <div class="product-colors">
+                <div class="color-option" style="background-color: #000;"></div>
+                <div class="color-option" style="background-color: #fff; border: 1px solid #ccc;"></div>
+                <div class="color-option" style="background-color: #ff0000;"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-item">
+            <div class="product-img">
+              <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Buty Gazelle">
+            </div>
+            <div class="quick-view">Szybki podgląd</div>
+            <div class="product-info">
+              <div class="product-category">Buty lifestyle</div>
+              <div class="product-title">Gazelle</div>
+              <div class="product-price">349,99 zł</div>
+              <div class="product-colors">
+                <div class="color-option" style="background-color: #000;"></div>
+                <div class="color-option" style="background-color: #f43f5e;"></div>
+                <div class="color-option" style="background-color: #3b82f6;"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-item">
+            <div class="product-badge">Promocja</div>
+            <div class="product-img">
+              <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Buty Superstar">
+            </div>
+            <div class="quick-view">Szybki podgląd</div>
+            <div class="product-info">
+              <div class="product-category">Buty lifestyle</div>
+              <div class="product-title">Superstar</div>
+              <div class="product-price">299,99 zł</div>
+              <div class="product-colors">
+                <div class="color-option" style="background-color: #000;"></div>
+                <div class="color-option" style="background-color: #fff; border: 1px solid #ccc;"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-item">
+            <div class="product-img">
+              <img src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Buty Forum">
+            </div>
+            <div class="quick-view">Szybki podgląd</div>
+            <div class="product-info">
+              <div class="product-category">Buty lifestyle</div>
+              <div class="product-title">Forum Low</div>
+              <div class="product-price">329,99 zł</div>
+              <div class="product-colors">
+                <div class="color-option" style="background-color: #000;"></div>
+                <div class="color-option" style="background-color: #1e40af;"></div>
+                <div class="color-option" style="background-color: #dc2626;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Produkty</h3>
+        <div class="footer-links">
+          <a href="#">Nowości</a>
+          <a href="#">Bestsellery</a>
+          <a href="#">Obuwie</a>
+          <a href="#">Odzież</a>
+          <a href="#">Akcesoria</a>
+          <a href="#">Promocje</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Sport</h3>
+        <div class="footer-links">
+          <a href="#">Bieganie</a>
+          <a href="#">Piłka nożna</a>
+          <a href="#">Tenis</a>
+          <a href="#">Koszykówka</a>
+          <a href="#">Trening</a>
+          <a href="#">Outdoor</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>O firmie</h3>
+        <div class="footer-links">
+          <a href="#">O nas</a>
+          <a href="#">Kariera</a>
+          <a href="#">Zrównoważony rozwój</a>
+          <a href="#">Prasa</a>
+          <a href="#">Sklepy stacjonarne</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Obsługa klienta</h3>
+        <div class="footer-links">
+          <a href="#">Pomoc</a>
+          <a href="#">Zwroty i reklamacje</a>
+          <a href="#">Dostawa</a>
+          <a href="#">Rozmiarówka</a>
+          <a href="#">Kontakt</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Newsletter</h3>
+        <p>Zapisz się do newslettera i otrzymuj informacje o nowościach i promocjach.</p>
+        <div class="newsletter">
+          <input type="email" placeholder="Twój adres e-mail">
+          <button>Zapisz się</button>
+        </div>
+        
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div>© 2025 SportShop. Wszystkie prawa zastrzeżone.</div>
+      <div class="payment-methods">
+        <i class="fab fa-cc-visa"></i>
+        <i class="fab fa-cc-mastercard"></i>
+        <i class="fab fa-cc-paypal"></i>
+        <i class="fab fa-cc-apple-pay"></i>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Prosta nawigacja między stronami
+    document.addEventListener('DOMContentLoaded', function() {
+      // Domyślnie pokazujemy stronę główną
+      document.getElementById('home-page').style.display = 'block';
+      
+      // Funkcje do przełączania stron
+      function showPage(pageId) {
+        document.getElementById('home-page').style.display = 'none';
+        document.getElementById('product-page').style.display = 'none';
+        document.getElementById('category-page').style.display = 'none';
+        
+        document.getElementById(pageId).style.display = 'block';
+      }
+      
+      // Symulacja nawigacji - w prawdziwej aplikacji byłoby to obsługiwane przez router
+      const navLinks = document.querySelectorAll('nav a, .product-item, .view-all');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          if(this.textContent.includes('Produkty') || this.closest('.product-grid')) {
+            showPage('category-page');
+          } else if(this.classList.contains('product-item') || this.closest('.product-item')) {
+            showPage('product-page');
+          } else {
+            showPage('home-page');
+          }
+        });
+      });
+      
+      // Dodanie funkcjonalności wyboru rozmiaru i koloru
+      const sizeOptions = document.querySelectorAll('.size-option');
+      sizeOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+      
+      const colorOptions = document.querySelectorAll('.color-option');
+      colorOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+      
+      // Dodanie produktu do koszyka
+      const addToCartBtn = document.querySelector('.add-to-cart');
+      if(addToCartBtn) {
+        addToCartBtn.addEventListener('click', function() {
+          alert('Produkt został dodany do koszyka!');
+          this.innerHTML = '<i class="fas fa-check"></i> Dodano do koszyka';
+          this.style.backgroundColor = '#28a745';
+        });
+      }
+    });
+  </script>
 </body>
 </html>
